@@ -5,10 +5,10 @@
 <hibernate-configuration>
   <session-factory>
     <!--使用 Hibernate 自带的连接池配置-->
-    <property name="connection.url">jdbc:mysql://localhost:3306/bianchengbang_jdbc</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/hibernate</property>
+    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
-    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <!--hibernate 方言-->
     <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
     <!--打印sql语句-->
