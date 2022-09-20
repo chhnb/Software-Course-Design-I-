@@ -49,6 +49,7 @@ public class LoginDAO implements LoginDAOInf {
             res.setName(login.getName());
             res.setId(login.getId());
             res.setUserType(login.getUserType());
+            res.setDormitoryId(login.getDormitoryId());
         }
         return res;
     }

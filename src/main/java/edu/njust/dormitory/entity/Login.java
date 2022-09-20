@@ -39,6 +39,9 @@ public class Login {
     @Column(name = "USER_TYPE")
     private int userType;
 
+    @Column(name = "DORMITORY_ID")
+    private int dormitoryId;
+
     public Login(){
     }
 
@@ -91,4 +94,7 @@ public class Login {
     public void setUserType(int userType) {
         this.userType = userType;
     }
+
+    public int getDormitoryId(){return dormitoryId;}
+    public void setDormitoryId(int dormitoryId) {this.dormitoryId = dormitoryId;}
 }

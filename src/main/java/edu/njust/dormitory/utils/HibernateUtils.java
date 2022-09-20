@@ -1,5 +1,6 @@
 package edu.njust.dormitory.utils;
 
+import edu.njust.dormitory.entity.Dormitory;
 import edu.njust.dormitory.entity.Login;
 import edu.njust.dormitory.entity.Register;
 import org.hibernate.cfg.Configuration;
@@ -145,6 +146,74 @@ public class HibernateUtils {
         Transaction transaction = session.beginTransaction();
 
         session.delete(registerEntity);
+
+        transaction.commit();
+        session.close();
+        sessionFactory.close();
+    }
+
+    /**
+     * 传统sql语句操作Hibernate进行查询
+     */
+    public List<Dormitory> sqlQuery_Dormitory(String sql){
+        List<Dormitory> res;
+
+        Configuration configuration = new Configuration().configure();
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        NativeQuery sqlQuery = session.createSQLQuery(sql);
+        sqlQuery.addEntity(Dormitory.class);
+        res = sqlQuery.getResultList();
+
+        transaction.commit();
+        session.close();
+        sessionFactory.close();
+
+        return res;
+    }
+    /**
+     * 新增数据并返回对应主键
+     */
+    public void insert_Dormitory(Dormitory dormitory){
+        Configuration configuration = new Configuration().configure();
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Serializable save = session.save(dormitory);
+        System.out.println("新数据主键id：" + save);
+
+        transaction.commit();
+        session.close();
+        sessionFactory.close();
+    }
+    /**
+     * 根据主键更新数据
+     */
+    public void update_Dormitory(Dormitory dormitory){
+        Configuration configuration = new Configuration().configure();
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.update(dormitory);
+
+        transaction.commit();
+        session.close();
+        sessionFactory.close();
+    }
+    /**
+     * 删除记录
+     */
+    public void delete_Dormitory(Dormitory dormitory){
+        Configuration configuration = new Configuration().configure();
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.delete(dormitory);
 
         transaction.commit();
         session.close();
