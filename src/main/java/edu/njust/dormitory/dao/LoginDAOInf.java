@@ -4,6 +4,9 @@ import edu.njust.dormitory.entity.Login;
 
 public interface LoginDAOInf {
     int checkLogin(Login loginInfo);
-    int forgetPwd(Login loginEntity);
     Login getInfo(Login loginEntity);
+
+    void updateLogin(Login login);
+
+    void delLogin(Login login);
 }

@@ -9,6 +9,12 @@ public class LoginDAO implements LoginDAOInf {
 
     static HibernateUtils hibernateUtils = new HibernateUtils();
 
+    /**
+     * 登录
+     * @return errorCode    0-成功
+     *                      1-用户不存在
+     *                      2-密码错误
+     */
     @Override
     public int checkLogin(Login loginInfo) {
         int errorCode = 0;
@@ -27,10 +33,6 @@ public class LoginDAO implements LoginDAOInf {
         return errorCode;
     }
 
-    @Override
-    public int forgetPwd(Login loginEntity) {
-        return 0;
-    }
 
     @Override
     public Login getInfo(Login loginEntity) {
@@ -43,11 +45,23 @@ public class LoginDAO implements LoginDAOInf {
         res.setPwd(loginEntity.getPwd());
 
         for(Login login : loginEntityList){
+            res.setNum(login.getNum());
             res.setName(login.getName());
             res.setId(login.getId());
             res.setUserType(login.getUserType());
         }
         return res;
     }
+
+    @Override
+    public void updateLogin(Login login) {
+        hibernateUtils.update_LoginEntity(login);
+    }
+
+    @Override
+    public void delLogin(Login login) {
+        hibernateUtils.delete_LoginEntity(login);
+    }
+
 
 }

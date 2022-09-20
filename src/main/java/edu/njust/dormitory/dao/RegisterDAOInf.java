@@ -12,10 +12,10 @@ public interface RegisterDAOInf {
 
     void addRegister(Register register);
 
-    void passRegister(Register register);
-
     void updateRegister(Register register);
 
     void delRegister(Register register);
+
+    Register getInfo(Register register);
 
 }

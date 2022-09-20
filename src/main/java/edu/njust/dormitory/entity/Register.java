@@ -55,6 +55,8 @@ public class Register {
         this.checkRes = checkRes;
     }
 
+    public long getNum()    {return num;}
+    public void setNum(long num) {this.num = num;}
     public String getUserName() {
         return userName;
     }

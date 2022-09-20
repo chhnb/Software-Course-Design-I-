@@ -50,6 +50,8 @@ public class Login {
         this.setUserType(userType);
     }
 
+    public long getNum(){return num;}
+    public void setNum(long num) {this.num = num;}
     public String getUserName() {
         return userName;
     }
