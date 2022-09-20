@@ -8,9 +8,11 @@ import java.util.List;
 public interface DormitoryDAOInf {
     List<Dormitory> showDormitory();
 
-    Dormitory queryDormitory(Dormitory dormitory);
+    List<Dormitory> showPartDormitory();
 
-    void addMember(Dormitory dormitory,Login login);
+    List<Dormitory> queryDormitory(Dormitory dormitory);
+
+    void updateDormitory(Dormitory dormitory);
 
 
 }

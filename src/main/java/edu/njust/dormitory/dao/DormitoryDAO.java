@@ -11,16 +11,26 @@ public class DormitoryDAO implements DormitoryDAOInf{
 
     @Override
     public List<Dormitory> showDormitory() {
-        return null;
+        String sql = "select * from dormitory";
+        return hibernateUtils.sqlQuery_Dormitory(sql);
     }
 
     @Override
-    public Dormitory queryDormitory(Dormitory dormitory) {
-        return null;
+    public List<Dormitory> showPartDormitory() {
+        String sql = "select * from dormitory where number < 4";
+        return hibernateUtils.sqlQuery_Dormitory(sql);
     }
 
     @Override
-    public void addMember(Dormitory dormitory, Login login) {
-
+    public List<Dormitory> queryDormitory(Dormitory dormitory) {
+        String sql = "select * from dormitory where id = '"+dormitory.getId()+"'";
+        return hibernateUtils.sqlQuery_Dormitory(sql);
     }
+
+    @Override
+    public void updateDormitory(Dormitory dormitory) {
+        hibernateUtils.update_Dormitory(dormitory);
+    }
+
+
 }
