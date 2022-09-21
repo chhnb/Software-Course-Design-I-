@@ -1,10 +1,12 @@
 package edu.njust.dormitory.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import edu.njust.dormitory.entity.Login;
 import edu.njust.dormitory.entity.Register;
 import edu.njust.dormitory.entity.Result;
 import edu.njust.dormitory.service.LoginService;
 import edu.njust.dormitory.service.RegisterService;
+import edu.njust.dormitory.utils.JwtUtils;
 import edu.njust.dormitory.utils.ResultUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,11 @@ public class LoginController {
         switch (res){
             case 0:{
                 login = loginService.getInfo(login);
-                result = ResultUtils.success(login);
+
+                String token = JwtUtils.sign(login);
+                result.setToken(token);
+
+                result = ResultUtils.success(result);
                 break;
             }
             case 1:{
@@ -122,27 +128,37 @@ public class LoginController {
     }
 
     @PostMapping("/changeUserName")
-    public Result ChangeUserName(@RequestBody Login login){
+    public Result ChangeUserName(@RequestBody String token){
         Result result;
+
+        Login login = new Login();
+        login.setUserName(JwtUtils.getUserName(token));
+        loginService.getInfo(login);
 
         String userName = login.getUserName();
         login = loginService.getInfo(login);
         login.setUserName(userName);
         loginService.updateLogin(login);
         result = ResultUtils.success();
+        result.setToken(token);
 
         return  result;
     }
 
     @PostMapping("/changePwd")
-    public Result ChangePwd(@RequestBody Login login){
+    public Result ChangePwd(@RequestBody String token){
         Result result;
+
+        Login login = new Login();
+        login.setUserName(JwtUtils.getUserName(token));
+        loginService.getInfo(login);
 
         String pwd = login.getPwd();
         login = loginService.getInfo(login);
         login.setPwd(pwd);
         loginService.updateLogin(login);
         result = ResultUtils.success();
+        result.setToken(token);
 
         return  result;
     }
@@ -158,4 +174,10 @@ public class LoginController {
         return  result;
     }
 
+    @PostMapping("/logout")
+    public Result Logout(@RequestBody String token){
+        Result result = ResultUtils.success();
+        result.setToken(null);
+        return  result;
+    }
 }

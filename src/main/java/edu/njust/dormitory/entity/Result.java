@@ -10,6 +10,18 @@ public class Result {
      * 非0表示出现问题
      */
     private int code;
+    private String message;
+    private Object data;
+
+    private String token;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 
     public String getMessage() {
         return message;
@@ -27,14 +39,11 @@ public class Result {
         this.data = data;
     }
 
-    private String message;
-    private Object data;
-
-    public int getCode() {
-        return code;
+    public String getToken() {
+        return token;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setToken(String token) {
+        this.token = token;
     }
 }
