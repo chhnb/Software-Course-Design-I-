@@ -64,5 +64,11 @@ public class LoginDAO implements LoginDAOInf {
         hibernateUtils.delete_LoginEntity(login);
     }
 
+    @Override
+    public List<Login> queryHomeless() {
+        String sql = "select * from login where DORMITORY_ID = '0'";
+        return hibernateUtils.sqlQuery_LoginEntity(sql);
+    }
+
 
 }

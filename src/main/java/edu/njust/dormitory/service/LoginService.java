@@ -24,4 +24,5 @@ public class LoginService {
     public void delLogin(Login login){
         loginDAO.delLogin(login);
     }
+
 }
