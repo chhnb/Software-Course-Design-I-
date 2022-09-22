@@ -97,13 +97,8 @@ public class DormitoryController {
     public  Result AddMember(Login login){
         Result result;
 
-        int dormitoryId = login.getDormitoryId();
-        login = loginService.getInfo(login);
-        login.setDormitoryId(dormitoryId);
-        loginService.updateLogin(login);
-
         Dormitory dormitory = new Dormitory();
-        dormitory.setId(dormitoryId);
+        dormitory.setId(login.getDormitoryId());
         dormitoryService.addMember(dormitory,login);
         result = ResultUtils.success(dormitory);
 
@@ -119,13 +114,8 @@ public class DormitoryController {
     public Result DelMember(Login login){
         Result result;
 
-        int dormitoryId = login.getDormitoryId();
-        login = loginService.getInfo(login);
-        login.setDormitoryId(0);
-        loginService.updateLogin(login);
-
         Dormitory dormitory = new Dormitory();
-        dormitory.setId(dormitoryId);
+        dormitory.setId(login.getDormitoryId());
         dormitoryService.delMember(dormitory,login);
         result = ResultUtils.success(login);
 

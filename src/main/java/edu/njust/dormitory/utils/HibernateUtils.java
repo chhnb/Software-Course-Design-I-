@@ -1,5 +1,6 @@
 package edu.njust.dormitory.utils;
 
+import edu.njust.dormitory.entity.Cost;
 import edu.njust.dormitory.entity.Dormitory;
 import edu.njust.dormitory.entity.Login;
 import edu.njust.dormitory.entity.Register;
@@ -219,4 +220,41 @@ public class HibernateUtils {
         session.close();
         sessionFactory.close();
     }
+    /**
+     * 传统sql语句操作Hibernate进行查询
+     */
+    public List<Cost> sqlQuery_Cost(String sql){
+        List<Cost> res;
+
+        Configuration configuration = new Configuration().configure();
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        NativeQuery sqlQuery = session.createSQLQuery(sql);
+        sqlQuery.addEntity(Cost.class);
+        res = sqlQuery.getResultList();
+
+        transaction.commit();
+        session.close();
+        sessionFactory.close();
+
+        return res;
+    }
+    /**
+     * 根据主键更新数据
+     */
+    public void update_Cost(Cost cost){
+        Configuration configuration = new Configuration().configure();
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.update(cost);
+
+        transaction.commit();
+        session.close();
+        sessionFactory.close();
+    }
+
 }

@@ -21,7 +21,7 @@ public class Dormitory {
      * 宿舍是否通电
      */
     @Column(name = "Electric")
-    private int electric;
+    private boolean electric;
     /**
      * 宿舍人员用户名1
      */
@@ -45,7 +45,7 @@ public class Dormitory {
 
     public Dormitory(){}
 
-    public Dormitory(int id,int number,int electric,String peopleNum1,String peopleNum2,String peopleNum3,String peopleNum4){
+    public Dormitory(int id,int number,boolean electric,String peopleNum1,String peopleNum2,String peopleNum3,String peopleNum4){
         this.id = id;
         this.number = number;
         this.electric = electric;
@@ -71,11 +71,11 @@ public class Dormitory {
         this.number = number;
     }
 
-    public int getElectric() {
+    public boolean getElectric() {
         return electric;
     }
 
-    public void setElectric(int electric) {
+    public void setElectric(boolean electric) {
         this.electric = electric;
     }
 
