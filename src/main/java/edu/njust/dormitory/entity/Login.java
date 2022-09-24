@@ -7,16 +7,9 @@ import javax.persistence.*;
 public class Login {
 
     /**
-     * 自增长序号
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "num")
-    private long num;
-
-    /**
      * 用户名
      */
+    @Id
     @Column(name = "USER_NAME")
     private String userName;
     /**
@@ -54,8 +47,7 @@ public class Login {
         this.setUserType(userType);
     }
 
-    public long getNum(){return num;}
-    public void setNum(long num) {this.num = num;}
+
     public String getUserName() {
         return userName;
     }

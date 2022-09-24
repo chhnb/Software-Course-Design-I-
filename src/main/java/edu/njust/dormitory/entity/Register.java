@@ -1,47 +1,42 @@
 package edu.njust.dormitory.entity;
 
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "register")
 public class Register {
-    /**
-     * 自增长序号
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "num")
-    private long num;
 
     /**
      * 用户名
      */
-    @Column(name = "USER_NAME")
+    @Id
+    @Column(name = "user_name")
     private String userName;
     /**
      * 密码
      */
-    @Column(name = "PWD")
+    @Column(name = "pwd")
     private String pwd;
     /**
      * 姓名
      */
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
     /**
      * 身份证号
      */
-    @Column(name = "ID")
+    @Column(name = "id")
     private String id;
     /**
      * 用户类型
      */
-    @Column(name = "USER_TYPE")
+    @Column(name = "user_type")
     private int userType;
     /**
      * 审核状况
      */
-    @Column(name = "CHECK_RES")
+    @Column(name = "check_res")
     private int checkRes;
 
     public  Register(){
@@ -56,8 +51,6 @@ public class Register {
         this.checkRes = checkRes;
     }
 
-    public long getNum()    {return num;}
-    public void setNum(long num) {this.num = num;}
     public String getUserName() {
         return userName;
     }

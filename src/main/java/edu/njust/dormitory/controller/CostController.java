@@ -89,8 +89,7 @@ public class CostController {
 
         int electric = cost.getElectric();
         electric += money;
-        cost.setElectric(electric);
-        costService.updateCost(cost);
+        costService.updateElectric(cost,electric);
         result = ResultUtils.success(cost);
 
         return result;
@@ -113,8 +112,7 @@ public class CostController {
 
         int water = cost.getElectric();
         water += money;
-        cost.setElectric(water);
-        costService.updateCost(cost);
+        costService.updateWater(cost,water);
         result = ResultUtils.success(cost);
 
         return result;

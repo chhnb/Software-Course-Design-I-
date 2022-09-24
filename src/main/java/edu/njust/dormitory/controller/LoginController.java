@@ -1,6 +1,7 @@
 package edu.njust.dormitory.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import edu.njust.dormitory.DormitoryManagementApplication;
 import edu.njust.dormitory.entity.Login;
 import edu.njust.dormitory.entity.Register;
 import edu.njust.dormitory.entity.Result;
@@ -8,17 +9,24 @@ import edu.njust.dormitory.service.LoginService;
 import edu.njust.dormitory.service.RegisterService;
 import edu.njust.dormitory.utils.JwtUtils;
 import edu.njust.dormitory.utils.ResultUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 public class LoginController {
-    static LoginService loginService = new LoginService();
-    static RegisterService registerService = new RegisterService();
+
+    @Autowired
+    private RegisterService registerService;
+
+    @Autowired
+    private LoginService loginService;
 
     /**
      * 登录验证
@@ -26,6 +34,7 @@ public class LoginController {
      * @return 失败信息或token字符串
      */
     @PostMapping("/login")
+    @ResponseBody
     public Result Login(@RequestBody Login login){
         Result result = new Result();
 
@@ -166,9 +175,7 @@ public class LoginController {
         login.setUserName(JwtUtils.getUserName(token));
         loginService.getInfo(login);
 
-
-        login.setUserName(userName);
-        loginService.updateLogin(login);
+        loginService.updateUserName(login,userName);
         result = ResultUtils.success();
         result.setToken(token);
 
@@ -189,8 +196,7 @@ public class LoginController {
         login.setUserName(JwtUtils.getUserName(token));
         loginService.getInfo(login);
 
-        login.setPwd(pwd);
-        loginService.updateLogin(login);
+        loginService.updatePwd(login,pwd);
         result = ResultUtils.success();
         result.setToken(token);
 

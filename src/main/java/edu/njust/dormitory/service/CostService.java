@@ -1,34 +1,42 @@
 package edu.njust.dormitory.service;
 
-import edu.njust.dormitory.dao.CostDAO;
 import edu.njust.dormitory.entity.Cost;
 import edu.njust.dormitory.entity.Dormitory;
+import edu.njust.dormitory.repository.CostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class CostService {
 
-    static CostDAO costDAO = new CostDAO();
+    @Autowired
+    private CostRepository costRepository;
 
     public List<Cost> queryAllCost() {
-        return costDAO.queryAllCost();
+        return costRepository.findAllCost();
     }
 
     public Cost queryCost(Dormitory dormitory) {
-        return costDAO.queryCost(dormitory);
+        return costRepository.findById(dormitory.getId());
     }
 
     public List<Cost> queryPartCost() {
-        return costDAO.queryPartCost();
+        return costRepository.findPartCost();
     }
 
-    public void updateCost(Cost cost) {
-        costDAO.updateCost(cost);
+    public void updateElectric(Cost cost, Integer electric) {
+        costRepository.updateElectric(cost.getDormitoryId(), electric);
     }
 
+    public void updateWater(Cost cost,Integer water){
+        costRepository.updateWater(cost.getDormitoryId(), water);
+    }
+
+    public void updatePower(Cost cost,Integer power){
+        costRepository.updatePower(cost.getDormitoryId(), power);
+    }
     public Cost getInfo(Cost cost){
-        Dormitory dormitory = new Dormitory();
-        dormitory.setId(cost.getDormitoryId());
-        return costDAO.queryCost(dormitory);
+        return costRepository.findById(cost.getDormitoryId());
     }
 }

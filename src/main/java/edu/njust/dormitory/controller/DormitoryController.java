@@ -3,10 +3,12 @@ package edu.njust.dormitory.controller;
 import edu.njust.dormitory.entity.Dormitory;
 import edu.njust.dormitory.entity.Login;
 import edu.njust.dormitory.entity.Result;
+import edu.njust.dormitory.repository.LoginRepository;
 import edu.njust.dormitory.service.DormitoryService;
 import edu.njust.dormitory.service.LoginService;
 import edu.njust.dormitory.utils.JwtUtils;
 import edu.njust.dormitory.utils.ResultUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +18,10 @@ import java.util.List;
 @RestController
 public class DormitoryController {
 
-    static LoginService loginService = new LoginService();
-    static DormitoryService dormitoryService = new DormitoryService();
+    @Autowired
+    private DormitoryService dormitoryService;
+    @Autowired
+    private LoginService loginService;
 
     /**
      * 查询所有宿舍

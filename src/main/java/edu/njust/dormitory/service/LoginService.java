@@ -1,10 +1,14 @@
 package edu.njust.dormitory.service;
 
-import edu.njust.dormitory.dao.LoginDAO;
 import edu.njust.dormitory.entity.Login;
+import edu.njust.dormitory.repository.LoginRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LoginService {
-    static LoginDAO loginDAO = new LoginDAO();
+    @Autowired
+    private LoginRepository loginRepository;
     /**
      * 登录
      * @return errorCode    0-成功
@@ -12,17 +16,32 @@ public class LoginService {
      *                      2-密码错误
      */
     public int checkUser(Login loginInfo){
-        return loginDAO.checkLogin(loginInfo);
+        Login login = loginRepository.findLoginByUserName(loginInfo.getUserName());
+        if(login == null){
+            return 1;
+        }else{
+            if(login.getPwd().equals(loginInfo.getPwd())){
+                return 0;
+            }else{
+                return 2;
+            }
+        }
     }
 
-    public Login getInfo(Login loginInfo) {return loginDAO.getInfo(loginInfo);}
+    public Login getInfo(Login loginInfo) {
+        return loginRepository.findLoginByUserName(loginInfo.getUserName());
+    }
 
-    public void updateLogin(Login login) {
-        loginDAO.updateLogin(login);
+    public void updateUserName(Login login,String newUserName) {
+        loginRepository.updateUserName(login.getUserName(),newUserName);
+    }
+
+    public void updatePwd(Login login,String newPwd){
+        loginRepository.updatePwd(login.getUserName(),newPwd);
     }
 
     public void delLogin(Login login){
-        loginDAO.delLogin(login);
+        loginRepository.deleteLoginByUserName(login.getUserName());
     }
 
 }
