@@ -22,11 +22,15 @@ class DormitoryManagementApplicationTests {
     @Test
     void contextLoads() {
 
-        Result result = loginController.ShowRegister();
-        List<Register> registerList = (List<Register>)result.getData();
-        for(Register tmp: registerList){
-            System.out.println(tmp.getUserName()+"  "+tmp.getName());
-        }
+        Login login = new Login();
+        login.setUserName("oguriCap");
+        login.setPwd("12345667");
+        Result result = loginController.Login(login);
+        System.out.println(result.getCode()+" "+result.getMessage());
+        System.out.println(result.getToken());
+        result = loginController.ChangeUserName(result.getToken(),"tachyon");
+        System.out.println(result.getCode()+" "+result.getMessage());
+        System.out.println(result.getToken());
     }
 
 }

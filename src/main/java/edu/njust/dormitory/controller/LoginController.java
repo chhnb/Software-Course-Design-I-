@@ -45,9 +45,9 @@ public class LoginController {
                 login = loginService.getInfo(login);
 
                 String token = JwtUtils.sign(login);
-                result.setToken(token);
 
                 result = ResultUtils.success(result);
+                result.setToken(token);
                 break;
             }
             case 1:{
@@ -70,7 +70,7 @@ public class LoginController {
      */
     @PostMapping("/register")
     public Result Register(@RequestBody Register register){
-        Result result = new Result();
+        Result result;
         register.setCheckRes(0);
 
         int res = registerService.checkRegister(register);
@@ -100,6 +100,9 @@ public class LoginController {
             case 5:{
                 result = ResultUtils.error(2005,"用户名已被使用");
                 break;
+            }
+            default:{
+                result = ResultUtils.error(2006,"未知错误，请联系后台管理员");
             }
         }
 
@@ -205,6 +208,14 @@ public class LoginController {
         Login login = new Login();
         login.setUserName(JwtUtils.getUserName(token));
         loginService.getInfo(login);
+
+        Login tmp = new Login();
+        tmp.setUserName(userName);
+        int res = loginService.checkUser(tmp);
+        if(res != 1){
+            result = ResultUtils.error(2005,"用户名已被使用");
+            return result;
+        }
 
         loginService.updateUserName(login,userName);
         result = ResultUtils.success();
