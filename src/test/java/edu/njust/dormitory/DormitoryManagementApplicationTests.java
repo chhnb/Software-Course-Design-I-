@@ -18,16 +18,12 @@ import java.util.List;
 class DormitoryManagementApplicationTests {
 
     @Autowired
-    private RegisterService registerService;
+    private LoginController loginController;
     @Test
     void contextLoads() {
 
-        Result result;
-        Register register = new Register();
-        register.setUserName("baozhiguo111");
-        register = registerService.getInfo(register);
-        System.out.println(register.getName());
-        List<Register> registerList = registerService.showRegister();
+        Result result = loginController.ShowRegister();
+        List<Register> registerList = (List<Register>)result.getData();
         for(Register tmp: registerList){
             System.out.println(tmp.getUserName()+"  "+tmp.getName());
         }

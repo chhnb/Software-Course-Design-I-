@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface CostRepository  extends JpaRepository<Register,Long> {
+public interface CostRepository  extends JpaRepository<Cost,Long> {
 
     @Query("select t from Cost t")
     List<Cost> findAllCost();

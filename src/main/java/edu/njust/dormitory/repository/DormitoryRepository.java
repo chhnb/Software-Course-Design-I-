@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface DormitoryRepository  extends JpaRepository<Register,Long> {
+public interface DormitoryRepository  extends JpaRepository<Dormitory,Long> {
 
     @Query("select t from Dormitory t where t.id = :id")
     Dormitory findDormitoryById(@Param("id") Integer id);

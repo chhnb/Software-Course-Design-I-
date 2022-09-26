@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface LoginRepository  extends JpaRepository<Register,Long> {
+public interface LoginRepository  extends JpaRepository<Login,Long> {
 
     /**
      * 根据用户名查询

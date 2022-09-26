@@ -1,6 +1,7 @@
 package edu.njust.dormitory.service;
 
 import edu.njust.dormitory.entity.Login;
+import edu.njust.dormitory.entity.Register;
 import edu.njust.dormitory.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,14 @@ public class LoginService {
             }
         }
     }
+
+    public void addLogin(Login login){
+        try {
+            Login res = loginRepository.save(login);
+        } catch (Exception ignored) {
+        }
+    }
+
 
     public Login getInfo(Login loginInfo) {
         return loginRepository.findLoginByUserName(loginInfo.getUserName());

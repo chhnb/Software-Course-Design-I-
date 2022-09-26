@@ -9,6 +9,7 @@ import edu.njust.dormitory.service.LoginService;
 import edu.njust.dormitory.service.RegisterService;
 import edu.njust.dormitory.utils.JwtUtils;
 import edu.njust.dormitory.utils.ResultUtils;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Controller;
@@ -118,7 +119,9 @@ public class LoginController {
         if(register == null){
             result = ResultUtils.error(3001,"查询的用户不存在");
         }else{
-            registerService.delRegister(register);
+            if(register.getCheckRes() != 0){
+                registerService.delRegister(register);
+            }
             result = ResultUtils.success(register);
         }
 
@@ -144,16 +147,44 @@ public class LoginController {
      * @param register 被审核人员
      * @return 注册信息
      */
-    @PostMapping("/updateRegister")
+    @PostMapping("/passRegister")
     public Result PassRegister(@RequestBody Register register){
         Result result;
 
-        int tmp = register.getCheckRes();
         register = registerService.getInfo(register);
         if(register == null){
             result = ResultUtils.error(4001,"操作的用户不存在");
-        }else{
-            register.setCheckRes(tmp);
+        }else {
+            register.setCheckRes(1);
+            registerService.updateRegister(register);
+            Login login = new Login();
+            login.setUserName(register.getUserName());
+            login.setPwd(register.getPwd());
+            login.setId(register.getId());
+            login.setName(register.getName());
+            login.setUserType(register.getUserType());
+            login.setDormitoryId(0);
+            loginService.addLogin(login);
+            result = ResultUtils.success(login);
+        }
+        return  result;
+    }
+
+    /**
+     * 拒绝注册申请
+     * @param register 注册者信息
+     * @param errorCode 注册失败原因
+     * @return 注册信息
+     */
+    @PostMapping("/refuseRegister")
+    public Result RefuseRegister(@RequestBody Register register,Integer errorCode){
+        Result result;
+
+        register = registerService.getInfo(register);
+        if(register == null){
+            result = ResultUtils.error(4001,"操作的用户不存在");
+        }else {
+            register.setCheckRes(errorCode);
             registerService.updateRegister(register);
             result = ResultUtils.success(register);
         }
