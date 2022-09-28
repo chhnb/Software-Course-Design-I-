@@ -37,7 +37,7 @@ public class LoginController {
     @PostMapping("/login")
     @ResponseBody
     public Result Login(@RequestBody Login login){
-        Result result = new Result();
+        Result result;
 
         int res = loginService.checkUser(login);
         switch (res){
@@ -46,7 +46,7 @@ public class LoginController {
 
                 String token = JwtUtils.sign(login);
 
-                result = ResultUtils.success(result);
+                result = ResultUtils.success(login);
                 result.setToken(token);
                 break;
             }
@@ -54,7 +54,7 @@ public class LoginController {
                 result = ResultUtils.error(1001,"用户不存在");
                 break;
             }
-            case 2:{
+            default:{
                 result = ResultUtils.error(1002,"密码错误");
                 break;
             }
