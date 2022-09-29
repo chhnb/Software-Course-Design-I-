@@ -215,12 +215,12 @@ public class LoginController {
     /**
      * 拒绝注册申请
      * @param register 注册者信息
-     * @param errorCode 注册失败原因
      * @return 注册信息
      */
     @PostMapping("/refuseRegister")
-    public Result RefuseRegister(@RequestBody Register register,Integer errorCode){
+    public Result RefuseRegister(@RequestBody Register register,Receive receive){
         Result result;
+        int errorCode = receive.getErrorCode();
 
         register = registerService.getInfo(register);
         if(register == null){

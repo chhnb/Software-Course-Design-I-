@@ -10,10 +10,29 @@ public class Receive {
                 "token='" + token + '\'' +
                 ", userName='" + userName + '\'' +
                 ", pwd='" + pwd + '\'' +
+                ", money=" + money +
+                ", resultNum=" + resultNum +
+                ", errorCode=" + errorCode +
                 '}';
     }
 
     String token;
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getResultNum() {
+        return resultNum;
+    }
+
+    public void setResultNum(int resultNum) {
+        this.resultNum = resultNum;
+    }
 
     public String getToken() {
         return token;
@@ -39,6 +58,17 @@ public class Receive {
         this.pwd = pwd;
     }
 
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
+
     String userName;
     String pwd;
+    int money;
+    int resultNum;
+    int errorCode;
 }

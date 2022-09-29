@@ -2,6 +2,7 @@ package edu.njust.dormitory.controller;
 
 import edu.njust.dormitory.entity.Cost;
 import edu.njust.dormitory.entity.Dormitory;
+import edu.njust.dormitory.entity.Receive;
 import edu.njust.dormitory.entity.Result;
 import edu.njust.dormitory.service.CostService;
 import edu.njust.dormitory.service.DormitoryService;
@@ -79,12 +80,12 @@ public class CostController {
     /**
      * 电费缴费
      * @param dormitory 宿舍信息
-     * @param money 缴费
      * @return 费用信息
      */
     @PostMapping("/addElectricCost")
-    public Result AddElectricCost(@RequestBody Dormitory dormitory,int money){
+    public Result AddElectricCost(@RequestBody Dormitory dormitory, Receive receive){
         Result result;
+        int money = receive.getMoney();
 
         Cost cost = costService.queryCost(dormitory);
         if(cost == null){
@@ -102,12 +103,12 @@ public class CostController {
     /**
      * 水费缴费
      * @param dormitory 宿舍信息
-     * @param money 缴费
      * @return 费用信息
      */
     @PostMapping("/addWaterCost")
-    public Result AddWaterCost(@RequestBody Dormitory dormitory, int money){
+    public Result AddWaterCost(@RequestBody Dormitory dormitory,Receive receive){
         Result result;
+        int money = receive.getMoney();
 
         Cost cost = costService.queryCost(dormitory);
         if(cost == null){

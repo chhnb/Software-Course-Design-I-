@@ -46,7 +46,7 @@ class DormitoryManagementApplicationTests {
         login = loginService.getInfo(login);
         login.setDormitoryId(3);
 
-        result =  dormitoryController.AddMember(login);
+        result =  dormitoryController.QueryAllDormitory();
         System.out.println(result);
     }
 }

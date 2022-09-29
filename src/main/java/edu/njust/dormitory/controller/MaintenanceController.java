@@ -1,6 +1,7 @@
 package edu.njust.dormitory.controller;
 
 import edu.njust.dormitory.entity.Maintenance;
+import edu.njust.dormitory.entity.Receive;
 import edu.njust.dormitory.entity.Result;
 import edu.njust.dormitory.service.MaintenanceService;
 import edu.njust.dormitory.utils.ResultUtils;
@@ -42,8 +43,10 @@ public class MaintenanceController {
     }
 
     @PostMapping("/updateMaintenance")
-    public Result UpdateMaintenance(@RequestBody Maintenance maintenance,int resultNum){
+    public Result UpdateMaintenance(@RequestBody Maintenance maintenance, Receive receive){
         Result result;
+        int resultNum = receive.getResultNum();
+
         maintenanceService.updateMaintenance(maintenance,resultNum);
         result = ResultUtils.success(maintenance);
         return result;
