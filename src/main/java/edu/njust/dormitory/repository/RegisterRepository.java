@@ -42,5 +42,8 @@ public interface RegisterRepository extends JpaRepository<Register,Long> {
     @Query("update Register r set r.checkRes = :checkRes where r.userName = :userName")
     void updateCheckResByUserName(@Param("userName") String userName, @Param("checkRes") Integer checkRes);
 
-
+    @Modifying
+    @Transactional
+    @Query("update Register r set r.userName = :newUserName where r.userName = :oldUserName")
+    void updateUserName(@Param("oldUserName") String oldUserName, @Param("newUserName") String newUserName);
 }

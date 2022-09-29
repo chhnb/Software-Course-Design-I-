@@ -1,5 +1,6 @@
 package edu.njust.dormitory.service;
 
+import edu.njust.dormitory.entity.Login;
 import edu.njust.dormitory.entity.Register;
 import edu.njust.dormitory.repository.RegisterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,4 +81,7 @@ public class RegisterService {
         return registerRepository.findUnchecked();
     }
 
+    public void updateUserName(Login oldLogin,Login newLogin){
+        registerRepository.updateUserName(oldLogin.getUserName(), newLogin.getUserName());
+    }
 }

@@ -42,7 +42,6 @@ public class LoginController {
      * @return 失败信息或token字符串
      */
     @PostMapping("/login")
-    @ResponseBody
     public Result Login(@RequestBody Login login){
         Result result;
 
@@ -281,6 +280,7 @@ public class LoginController {
 
         dormitoryService.updateUserName(oldLogin,newLogin);
         maintenanceService.updateUserName(oldLogin,newLogin);
+        registerService.updateUserName(oldLogin,newLogin);
 
         loginService.updateUserName(oldLogin,userName);
         String newToken = JwtUtils.sign(newLogin);
