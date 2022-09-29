@@ -8,6 +8,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cost")
 public class Cost {
+    @Override
+    public String toString() {
+        return "Cost{" +
+                "dormitoryId=" + dormitoryId +
+                ", electric=" + electric +
+                ", water=" + water +
+                ", power=" + power +
+                '}';
+    }
+
     public int getDormitoryId() {
         return dormitoryId;
     }

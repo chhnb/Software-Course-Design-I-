@@ -6,6 +6,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "register")
 public class Register {
+    @Override
+    public String toString() {
+        return "Register{" +
+                "userName='" + userName + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                ", userType=" + userType +
+                ", checkRes=" + checkRes +
+                '}';
+    }
 
     /**
      * 用户名

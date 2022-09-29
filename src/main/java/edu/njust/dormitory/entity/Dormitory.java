@@ -5,6 +5,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "dormitory")
 public class Dormitory {
+    @Override
+    public String toString() {
+        return "Dormitory{" +
+                "id=" + id +
+                ", number=" + number +
+                ", electric=" + electric +
+                ", peopleNum1='" + peopleNum1 + '\'' +
+                ", peopleNum2='" + peopleNum2 + '\'' +
+                ", peopleNum3='" + peopleNum3 + '\'' +
+                ", peopleNum4='" + peopleNum4 + '\'' +
+                '}';
+    }
+
     /**
      * 自增长宿舍编号
      */

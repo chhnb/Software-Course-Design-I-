@@ -5,6 +5,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "login")
 public class Login {
+    @Override
+    public String toString() {
+        return "Login{" +
+                "userName='" + userName + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                ", userType=" + userType +
+                ", dormitoryId=" + dormitoryId +
+                '}';
+    }
 
     /**
      * 用户名

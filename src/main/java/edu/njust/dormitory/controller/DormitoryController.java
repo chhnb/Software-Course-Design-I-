@@ -105,6 +105,7 @@ public class DormitoryController {
 
         Dormitory dormitory = new Dormitory();
         dormitory.setId(login.getDormitoryId());
+        dormitory = dormitoryService.getInfo(dormitory);
         dormitoryService.addMember(dormitory,login);
         result = ResultUtils.success(dormitory);
 
@@ -125,10 +126,13 @@ public class DormitoryController {
         Login login = new Login();
         login.setUserName(userName);
         login = loginService.getInfo(login);
+
         Dormitory dormitory = new Dormitory();
         dormitory.setId(login.getDormitoryId());
+        dormitory = dormitoryService.getInfo(dormitory);
+
         dormitoryService.delMember(dormitory,login);
-        result = ResultUtils.success(login);
+        result = ResultUtils.success(dormitory);
 
         return result;
     }

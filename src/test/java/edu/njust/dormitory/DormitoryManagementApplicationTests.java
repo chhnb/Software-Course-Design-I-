@@ -5,6 +5,7 @@ import edu.njust.dormitory.controller.DormitoryController;
 import edu.njust.dormitory.controller.LoginController;
 import edu.njust.dormitory.controller.MaintenanceController;
 import edu.njust.dormitory.entity.*;
+import edu.njust.dormitory.service.LoginService;
 import edu.njust.dormitory.service.RegisterService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -26,23 +27,26 @@ class DormitoryManagementApplicationTests {
     private CostController costController;
     @Autowired
     private MaintenanceController maintenanceController;
+    @Autowired
+    private LoginService loginService;
     @Test
     void contextLoads() {
 
+        Result result;
         Login login = new Login();
         login.setUserName("oguriCap");
         login.setPwd("12345667");
-        Result result = loginController.Login(login);
-        System.out.println(result.getCode()+" "+result.getMessage());
-        System.out.println(result.getToken());
+        result = loginController.Login(login);
+        System.out.println(result);
+
         String token = result.getToken();
         Receive receive = new Receive();
         receive.setToken(token);
-        result = dormitoryController.QueryDormitory(receive);
-        Dormitory dormitory = (Dormitory)result.getData();
-        System.out.println(result.getCode()+" "+result.getMessage());
-        System.out.println(dormitory.getId()+" "+dormitory.getPeopleNum1());
 
+        login = loginService.getInfo(login);
+        login.setDormitoryId(3);
+
+        result =  dormitoryController.AddMember(login);
+        System.out.println(result);
     }
-
 }

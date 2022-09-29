@@ -6,6 +6,18 @@ import java.util.Date;
 @Entity
 @Table(name = "maintenance")
 public class Maintenance {
+    @Override
+    public String toString() {
+        return "Maintenance{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", equipmentId='" + equipmentId + '\'' +
+                ", time=" + time +
+                ", detail='" + detail + '\'' +
+                ", result=" + result +
+                '}';
+    }
+
     /**
      * 自增长序号
      */

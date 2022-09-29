@@ -4,6 +4,16 @@ import lombok.Data;
 
 @Data
 public class Result {
+    @Override
+    public String toString() {
+        return "Result{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                ", token='" + token + '\'' +
+                '}';
+    }
+
     /**
      * 返回码
      * 0表示正常运行

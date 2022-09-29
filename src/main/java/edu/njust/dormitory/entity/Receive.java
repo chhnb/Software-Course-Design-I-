@@ -4,6 +4,15 @@ import lombok.Data;
 
 @Data
 public class Receive {
+    @Override
+    public String toString() {
+        return "Receive{" +
+                "token='" + token + '\'' +
+                ", userName='" + userName + '\'' +
+                ", pwd='" + pwd + '\'' +
+                '}';
+    }
+
     String token;
 
     public String getToken() {
