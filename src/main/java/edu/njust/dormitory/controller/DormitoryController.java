@@ -48,7 +48,7 @@ public class DormitoryController {
 
         Login login = new Login();
         login.setUserName(JwtUtils.getUserName(token));
-        loginService.getInfo(login);
+        login = loginService.getInfo(login);
 
         int dormitoryId = login.getDormitoryId();
         Dormitory dormitory = new Dormitory();
