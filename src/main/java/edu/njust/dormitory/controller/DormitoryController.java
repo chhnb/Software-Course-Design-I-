@@ -40,12 +40,13 @@ public class DormitoryController {
 
     /**
      * 查询登陆者的宿舍
-     * @param token jwt字符串
      * @return 登录者所属宿舍信息
      */
     @PostMapping("/queryDormitory")
-    public Result QueryDormitory(@RequestBody String token){
+    public Result QueryDormitory(@RequestBody Receive receive){
         Result result;
+
+        String token = receive.getToken();
 
         Login login = new Login();
         login.setUserName(JwtUtils.getUserName(token));
