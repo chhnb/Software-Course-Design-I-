@@ -111,13 +111,17 @@ public class DormitoryController {
 
     /**
      * 重新分配宿舍
-     * @param login 申请重新入住者的用户名
+     * @param token 用户token
      * @return 入住者信息
      */
     @PostMapping("/delMember")
-    public Result DelMember(Login login){
+    public Result DelMember(String token){
         Result result;
 
+        String userName = JwtUtils.getUserName(token);
+        Login login = new Login();
+        login.setUserName(userName);
+        login = loginService.getInfo(login);
         Dormitory dormitory = new Dormitory();
         dormitory.setId(login.getDormitoryId());
         dormitoryService.delMember(dormitory,login);

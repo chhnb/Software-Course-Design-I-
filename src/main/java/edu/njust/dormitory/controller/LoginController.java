@@ -152,6 +152,14 @@ public class LoginController {
                     result = ResultUtils.error(3003,"姓名不属实");
                     break;
                 }
+                case 3:{
+                    result = ResultUtils.error(3003,"身份证号不符");
+                    break;
+                }
+                case 4:{
+                    result = ResultUtils.error(3003,"用户类型不符");
+                    break;
+                }
                 default:{
                     result = ResultUtils.error(3000,"未知错误，请联系后台管理员");
                 }
