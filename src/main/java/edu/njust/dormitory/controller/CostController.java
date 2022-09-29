@@ -8,6 +8,7 @@ import edu.njust.dormitory.service.DormitoryService;
 import edu.njust.dormitory.utils.ResultUtils;
 import org.apache.logging.log4j.util.PerformanceSensitive;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class CostController {
         if(costList != null){
             result = ResultUtils.success(costList);
         }else{
-            result = ResultUtils.error(6001,"");
+            result = ResultUtils.error(6001,"找不到宿舍费用信息");
         }
 
         return result;
@@ -48,7 +49,7 @@ public class CostController {
         if(costList != null){
             result = ResultUtils.success(costList);
         }else{
-            result = ResultUtils.error(6001,"");
+            result = ResultUtils.error(6001,"找不到宿舍费用信息");
         }
 
         return result;
@@ -60,14 +61,14 @@ public class CostController {
      * @return 费用信息
      */
     @PostMapping("/queryCost")
-    public Result QueryCost(Dormitory dormitory){
+    public Result QueryCost(@RequestBody Dormitory dormitory){
         Result result;
 
         Cost cost = costService.queryCost(dormitory);
         if(cost != null){
             result = ResultUtils.success(cost);
         }else{
-            result = ResultUtils.error(6001,"");
+            result = ResultUtils.error(6001,"找不到宿舍费用信息");
         }
 
         return  result;
@@ -80,12 +81,12 @@ public class CostController {
      * @return 费用信息
      */
     @PostMapping("/addElectricCost")
-    public Result AddElectricCost(Dormitory dormitory,int money){
+    public Result AddElectricCost(@RequestBody Dormitory dormitory,int money){
         Result result;
 
         Cost cost = costService.queryCost(dormitory);
         if(cost == null){
-            return ResultUtils.error(6002,"");
+            return ResultUtils.error(6001,"找不到宿舍费用信息");
         }
 
         int electric = cost.getElectric();
@@ -103,12 +104,12 @@ public class CostController {
      * @return 费用信息
      */
     @PostMapping("/addWaterCost")
-    public Result AddWaterCost(Dormitory dormitory,int money){
+    public Result AddWaterCost(@RequestBody Dormitory dormitory, int money){
         Result result;
 
         Cost cost = costService.queryCost(dormitory);
         if(cost == null){
-            return ResultUtils.error(6002,"");
+            return ResultUtils.error(6001,"找不到宿舍费用信息");
         }
 
         int water = cost.getElectric();
