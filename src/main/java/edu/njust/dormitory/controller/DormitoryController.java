@@ -2,6 +2,7 @@ package edu.njust.dormitory.controller;
 
 import edu.njust.dormitory.entity.Dormitory;
 import edu.njust.dormitory.entity.Login;
+import edu.njust.dormitory.entity.Receive;
 import edu.njust.dormitory.entity.Result;
 import edu.njust.dormitory.repository.LoginRepository;
 import edu.njust.dormitory.service.DormitoryService;
@@ -98,7 +99,7 @@ public class DormitoryController {
      * @return 入住后的宿舍信息
      */
     @PostMapping("/addMember")
-    public  Result AddMember(Login login){
+    public  Result AddMember(@RequestBody Login login){
         Result result;
 
         Dormitory dormitory = new Dormitory();
@@ -111,12 +112,13 @@ public class DormitoryController {
 
     /**
      * 重新分配宿舍
-     * @param token 用户token
      * @return 入住者信息
      */
     @PostMapping("/delMember")
-    public Result DelMember(String token){
+    public Result DelMember(@RequestBody Receive receive){
         Result result;
+
+        String token = receive.getToken();
 
         String userName = JwtUtils.getUserName(token);
         Login login = new Login();

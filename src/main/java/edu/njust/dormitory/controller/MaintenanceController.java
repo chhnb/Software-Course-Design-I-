@@ -26,7 +26,7 @@ public class MaintenanceController {
     }
 
     @PostMapping("/showMaintenance")
-    public Result ShowMaintenance(@RequestBody Maintenance maintenance){
+    public Result ShowMaintenance(){
         Result result;
         List<Maintenance> maintenanceList = maintenanceService.showMaintenance();
         result = ResultUtils.success(maintenanceList);

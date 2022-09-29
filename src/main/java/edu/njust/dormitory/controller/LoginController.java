@@ -3,6 +3,7 @@ package edu.njust.dormitory.controller;
 import com.alibaba.fastjson.JSONObject;
 import edu.njust.dormitory.DormitoryManagementApplication;
 import edu.njust.dormitory.entity.Login;
+import edu.njust.dormitory.entity.Receive;
 import edu.njust.dormitory.entity.Register;
 import edu.njust.dormitory.entity.Result;
 import edu.njust.dormitory.service.LoginService;
@@ -235,13 +236,14 @@ public class LoginController {
 
     /**
      * 更改用户名
-     * @param token token字符串
-     * @param userName 新密码
      * @return 用户信息
      */
     @PostMapping("/changeUserName")
-    public Result ChangeUserName(@RequestBody String token,String userName){
+    public Result ChangeUserName(@RequestBody Receive receive){
         Result result;
+
+        String token = receive.getToken();
+        String userName = receive.getUserName();
 
         Login login = new Login();
         login.setUserName(JwtUtils.getUserName(token));
@@ -263,21 +265,26 @@ public class LoginController {
         }
 
         loginService.updateUserName(login,userName);
-        result = ResultUtils.success();
-        result.setToken(token);
+
+        tmp = loginService.getInfo(tmp);
+        String newToken = JwtUtils.sign(tmp);
+
+        result = ResultUtils.success(tmp);
+        result.setToken(newToken);
 
         return  result;
     }
 
     /**
      * 更改密码
-     * @param token token字符串
-     * @param pwd 新密码
      * @return 用户信息
      */
     @PostMapping("/changePwd")
-    public Result ChangePwd(@RequestBody String token,String pwd){
+    public Result ChangePwd(@RequestBody Receive receive){
         Result result;
+
+        String token = receive.getToken();
+        String pwd = receive.getPwd();
 
         Login login = new Login();
         login.setUserName(JwtUtils.getUserName(token));
@@ -292,12 +299,13 @@ public class LoginController {
 
     /**
      * 注销
-     * @param token token字符串
      * @return 空
      */
     @PostMapping("/delLogin")
-    public Result DelLogin(@RequestBody String token){
+    public Result DelLogin(@RequestBody Receive receive){
         Result result;
+
+        String token = receive.getToken();
 
         Login login = new Login();
         login.setUserName(JwtUtils.getUserName(token));
@@ -310,11 +318,11 @@ public class LoginController {
 
     /**
      * 登出
-     * @param token token字符串
      * @return 空
      */
     @PostMapping("/logout")
-    public Result Logout(@RequestBody String token){
+    public Result Logout(){
+
         Result result = ResultUtils.success();
         result.setToken(null);
         return  result;

@@ -4,6 +4,7 @@ import edu.njust.dormitory.controller.CostController;
 import edu.njust.dormitory.controller.DormitoryController;
 import edu.njust.dormitory.controller.LoginController;
 import edu.njust.dormitory.controller.MaintenanceController;
+import edu.njust.dormitory.entity.Dormitory;
 import edu.njust.dormitory.entity.Login;
 import edu.njust.dormitory.entity.Register;
 import edu.njust.dormitory.entity.Result;
@@ -37,9 +38,12 @@ class DormitoryManagementApplicationTests {
         Result result = loginController.Login(login);
         System.out.println(result.getCode()+" "+result.getMessage());
         System.out.println(result.getToken());
-        result = loginController.ChangeUserName(result.getToken(),"tachyon");
+        String token = result.getToken();
+        result = dormitoryController.QueryDormitory(token);
+        Dormitory dormitory = (Dormitory)result.getData();
         System.out.println(result.getCode()+" "+result.getMessage());
-        System.out.println(result.getToken());
+        System.out.println(dormitory.getId()+" "+dormitory.getPeopleNum1());
+
     }
 
 }
