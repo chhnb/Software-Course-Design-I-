@@ -7,6 +7,7 @@ import edu.njust.dormitory.service.CostService;
 import edu.njust.dormitory.service.DormitoryService;
 import edu.njust.dormitory.utils.ResultUtils;
 import org.apache.logging.log4j.util.PerformanceSensitive;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,8 @@ import java.util.List;
 public class CostController {
 
 
-    static CostService  costService = new CostService();
+    @Autowired
+    private CostService costService;
 
     /**
      * 查询所有宿舍的费用列表
