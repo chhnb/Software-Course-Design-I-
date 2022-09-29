@@ -6,7 +6,9 @@ import edu.njust.dormitory.entity.Login;
 import edu.njust.dormitory.entity.Receive;
 import edu.njust.dormitory.entity.Register;
 import edu.njust.dormitory.entity.Result;
+import edu.njust.dormitory.service.DormitoryService;
 import edu.njust.dormitory.service.LoginService;
+import edu.njust.dormitory.service.MaintenanceService;
 import edu.njust.dormitory.service.RegisterService;
 import edu.njust.dormitory.utils.JwtUtils;
 import edu.njust.dormitory.utils.ResultUtils;
@@ -29,6 +31,10 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private DormitoryService dormitoryService;
+    @Autowired
+    private MaintenanceService maintenanceService;
 
     /**
      * 登录验证
@@ -146,7 +152,7 @@ public class LoginController {
                     break;
                 }
                 case 1:{
-                    result = ResultUtils.success();
+                    result = ResultUtils.success(register);
                     break;
                 }
                 case 2:{
@@ -214,13 +220,15 @@ public class LoginController {
 
     /**
      * 拒绝注册申请
-     * @param register 注册者信息
      * @return 注册信息
      */
     @PostMapping("/refuseRegister")
-    public Result RefuseRegister(@RequestBody Register register,Receive receive){
+    public Result RefuseRegister(@RequestBody Receive receive){
         Result result;
         int errorCode = receive.getErrorCode();
+        String userName = receive.getUserName();
+        Register register = new Register();
+        register.setUserName(userName);
 
         register = registerService.getInfo(register);
         if(register == null){
@@ -228,6 +236,8 @@ public class LoginController {
         }else {
             register.setCheckRes(errorCode);
             registerService.updateRegister(register);
+
+            register = registerService.getInfo(register);
             result = ResultUtils.success(register);
         }
 
@@ -244,32 +254,38 @@ public class LoginController {
 
         String token = receive.getToken();
         String userName = receive.getUserName();
+        String oldUserName = JwtUtils.getUserName(token);
+
+        Login oldLogin = new Login();
+        Login newLogin;
+        oldLogin.setUserName(oldUserName);
+        oldLogin = loginService.getInfo(oldLogin);
+        newLogin = loginService.getInfo(oldLogin);
+        newLogin.setUserName(userName);
 
         Login login = new Login();
-        login.setUserName(JwtUtils.getUserName(token));
-        loginService.getInfo(login);
-
-        Login tmp = new Login();
-        tmp.setUserName(userName);
-        int res = loginService.checkUser(tmp);
-        if(res != 1){
+        login.setUserName(userName);
+        login = loginService.getInfo(login);
+        if(login != null){
             result = ResultUtils.error(2005,"用户名已被使用");
             return result;
         }
 
         Register register = new Register();
+        register.setUserName(userName);
         register = registerService.getInfo(register);
         if(register != null){
             result = ResultUtils.error(2005,"用户名已被使用");
             return result;
         }
 
-        loginService.updateUserName(login,userName);
+        dormitoryService.updateUserName(oldLogin,newLogin);
+        maintenanceService.updateUserName(oldLogin,newLogin);
 
-        tmp = loginService.getInfo(tmp);
-        String newToken = JwtUtils.sign(tmp);
+        loginService.updateUserName(oldLogin,userName);
+        String newToken = JwtUtils.sign(newLogin);
 
-        result = ResultUtils.success(tmp);
+        result = ResultUtils.success(newLogin);
         result.setToken(newToken);
 
         return  result;

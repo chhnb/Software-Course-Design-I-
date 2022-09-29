@@ -34,19 +34,17 @@ class DormitoryManagementApplicationTests {
 
         Result result;
         Login login = new Login();
-        login.setUserName("oguriCap");
-        login.setPwd("12345667");
+        login.setUserName("user001");
+        login.setPwd("111111");
         result = loginController.Login(login);
         System.out.println(result);
 
         String token = result.getToken();
         Receive receive = new Receive();
         receive.setToken(token);
+        receive.setUserName("specialWeek");
 
-        login = loginService.getInfo(login);
-        login.setDormitoryId(3);
-
-        result =  dormitoryController.QueryAllDormitory();
+        result = loginController.ChangeUserName(receive);
         System.out.println(result);
     }
 }

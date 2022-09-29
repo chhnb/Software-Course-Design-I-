@@ -79,4 +79,11 @@ public class DormitoryService {
     public List<Login> queryHomeless(){
         return loginRepository.findHomeless();
     }
+
+    public void updateUserName(Login oldLogin,Login newLogin){
+        dormitoryRepository.updateUserName1(oldLogin.getUserName(),newLogin.getUserName());
+        dormitoryRepository.updateUserName2(oldLogin.getUserName(),newLogin.getUserName());
+        dormitoryRepository.updateUserName3(oldLogin.getUserName(),newLogin.getUserName());
+        dormitoryRepository.updateUserName4(oldLogin.getUserName(),newLogin.getUserName());
+    }
 }

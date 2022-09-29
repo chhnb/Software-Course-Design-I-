@@ -21,7 +21,7 @@ public class MaintenanceController {
     @PostMapping("/queryMaintenance")
     public Result QueryMaintenance(@RequestBody Maintenance maintenance){
         Result result;
-        maintenance = maintenanceService.queryMaintenance(maintenance);
+        maintenance = maintenanceService.getInfo(maintenance);
         result = ResultUtils.success(maintenance);
         return result;
     }
@@ -43,9 +43,13 @@ public class MaintenanceController {
     }
 
     @PostMapping("/updateMaintenance")
-    public Result UpdateMaintenance(@RequestBody Maintenance maintenance, Receive receive){
+    public Result UpdateMaintenance(@RequestBody Receive receive){
         Result result;
         int resultNum = receive.getResultNum();
+        int id = receive.getId();
+        Maintenance maintenance = new Maintenance();
+        maintenance.setId(id);
+        maintenance = maintenanceService.getInfo(maintenance);
 
         maintenanceService.updateMaintenance(maintenance,resultNum);
         result = ResultUtils.success(maintenance);

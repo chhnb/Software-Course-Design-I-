@@ -18,7 +18,8 @@ import java.util.List;
 @RestController
 public class CostController {
 
-
+    @Autowired
+    private DormitoryService dormitoryService;
     @Autowired
     private CostService costService;
 
@@ -79,13 +80,15 @@ public class CostController {
 
     /**
      * 电费缴费
-     * @param dormitory 宿舍信息
      * @return 费用信息
      */
     @PostMapping("/addElectricCost")
-    public Result AddElectricCost(@RequestBody Dormitory dormitory, Receive receive){
+    public Result AddElectricCost(@RequestBody Receive receive){
         Result result;
         int money = receive.getMoney();
+        int id = receive.getId();
+        Dormitory dormitory = new Dormitory();
+        dormitory.setId(id);
 
         Cost cost = costService.queryCost(dormitory);
         if(cost == null){
@@ -95,6 +98,8 @@ public class CostController {
         int electric = cost.getElectric();
         electric += money;
         costService.updateElectric(cost,electric);
+
+        cost = costService.getInfo(cost);
         result = ResultUtils.success(cost);
 
         return result;
@@ -102,13 +107,15 @@ public class CostController {
 
     /**
      * 水费缴费
-     * @param dormitory 宿舍信息
      * @return 费用信息
      */
     @PostMapping("/addWaterCost")
-    public Result AddWaterCost(@RequestBody Dormitory dormitory,Receive receive){
+    public Result AddWaterCost(@RequestBody Receive receive){
         Result result;
         int money = receive.getMoney();
+        int id = receive.getId();
+        Dormitory dormitory = new Dormitory();
+        dormitory.setId(id);
 
         Cost cost = costService.queryCost(dormitory);
         if(cost == null){
@@ -118,6 +125,8 @@ public class CostController {
         int water = cost.getElectric();
         water += money;
         costService.updateWater(cost,water);
+
+        cost = costService.getInfo(cost);
         result = ResultUtils.success(cost);
 
         return result;

@@ -41,4 +41,8 @@ public interface MaintenanceRepository  extends JpaRepository<Maintenance,Long> 
     @Query("update Maintenance t set t.result = :result where t.id = :id")
     void updateMaintenanceById(@Param("id") int id, @Param("result") Integer result);
 
+    @Modifying
+    @Transactional
+    @Query("update Maintenance t set t.userName = :newUserName where t.userName = :oldUserName")
+    void updateUserName(@Param("oldUserName") String oldUserName, @Param("newUserName") String newUserName);
 }

@@ -48,4 +48,21 @@ public interface DormitoryRepository  extends JpaRepository<Dormitory,Long> {
     @Transactional
     @Query("update Dormitory u set u.peopleNum4 = :newUserName where u.id = :id")
     void updatePeople4(@Param("id") Integer id, @Param("newUserName") String newUserName);
+
+    @Modifying
+    @Transactional
+    @Query("update Dormitory u set u.peopleNum1 = :newUserName where u.peopleNum1 = :oldUserName")
+    void updateUserName1(@Param("oldUserName") String oldUserName, @Param("newUserName") String newUserName);
+    @Modifying
+    @Transactional
+    @Query("update Dormitory u set u.peopleNum2 = :newUserName where u.peopleNum2 = :oldUserName")
+    void updateUserName2(@Param("oldUserName") String oldUserName, @Param("newUserName") String newUserName);
+    @Modifying
+    @Transactional
+    @Query("update Dormitory u set u.peopleNum3 = :newUserName where u.peopleNum3 = :oldUserName")
+    void updateUserName3(@Param("oldUserName") String oldUserName, @Param("newUserName") String newUserName);
+    @Modifying
+    @Transactional
+    @Query("update Dormitory u set u.peopleNum4 = :newUserName where u.peopleNum4 = :oldUserName")
+    void updateUserName4(@Param("oldUserName") String oldUserName, @Param("newUserName") String newUserName);
 }

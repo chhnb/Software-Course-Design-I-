@@ -8,6 +8,7 @@ public class Receive {
     public String toString() {
         return "Receive{" +
                 "token='" + token + '\'' +
+                ", id=" + id +
                 ", userName='" + userName + '\'' +
                 ", pwd='" + pwd + '\'' +
                 ", money=" + money +
@@ -64,6 +65,16 @@ public class Receive {
 
     public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
+    }
+
+    int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     String userName;
