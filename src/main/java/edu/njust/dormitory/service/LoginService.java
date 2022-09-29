@@ -29,6 +29,13 @@ public class LoginService {
         }
     }
 
+    public int findByUserName(Login login){
+        login = loginRepository.findLoginByUserName(login.getUserName());
+        if(login == null)
+            return 1;
+        return 0;
+    }
+
     public void addLogin(Login login){
         try {
             Login res = loginRepository.save(login);

@@ -106,6 +106,13 @@ public class LoginController {
             }
         }
 
+        Login login = new Login();
+        login.setUserName(register.getUserName());
+        login = loginService.getInfo(login);
+        if(login != null){
+            result = ResultUtils.error(2005,"用户名已被使用");
+        }
+
         return  result;
     }
 
@@ -118,14 +125,37 @@ public class LoginController {
     public Result QueryRegister(@RequestBody Register register){
         Result result;
 
+        Login login = new Login();
+        login.setUserName(register.getUserName());
+        login = loginService.getInfo(login);
+        if(login != null){
+            result = ResultUtils.success();
+            return result;
+        }
+
         register = registerService.getInfo(register);
         if(register == null){
             result = ResultUtils.error(3001,"查询的用户不存在");
         }else{
-            if(register.getCheckRes() != 0){
-                registerService.delRegister(register);
+            int checkRes = register.getCheckRes();
+
+            switch (checkRes){
+                case 0:{
+                    result = ResultUtils.error(3002,"还未进行审核，请等待管理员处理");
+                    break;
+                }
+                case 1:{
+                    result = ResultUtils.success();
+                    break;
+                }
+                case 2:{
+                    result = ResultUtils.error(3003,"姓名不属实");
+                    break;
+                }
+                default:{
+                    result = ResultUtils.error(3000,"未知错误，请联系后台管理员");
+                }
             }
-            result = ResultUtils.success(register);
         }
 
         return  result;
@@ -213,6 +243,13 @@ public class LoginController {
         tmp.setUserName(userName);
         int res = loginService.checkUser(tmp);
         if(res != 1){
+            result = ResultUtils.error(2005,"用户名已被使用");
+            return result;
+        }
+
+        Register register = new Register();
+        register = registerService.getInfo(register);
+        if(register != null){
             result = ResultUtils.error(2005,"用户名已被使用");
             return result;
         }
