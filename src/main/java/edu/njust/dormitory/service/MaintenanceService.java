@@ -21,6 +21,10 @@ public class MaintenanceService {
         return maintenanceRepository.findUnchecked();
     }
 
+    public List<Maintenance> showPartMaintenance(){
+        return maintenanceRepository.findUnfinished();
+    }
+
     public void addMaintenance(Maintenance maintenance){
         maintenanceRepository.save(maintenance);
     }

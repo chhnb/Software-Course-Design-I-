@@ -36,6 +36,14 @@ public class MaintenanceController {
         return result;
     }
 
+    @PostMapping("/showPartMaintenance")
+    public Result ShowPartMaintenance(){
+        Result result;
+        List<Maintenance> maintenanceList = maintenanceService.showPartMaintenance();
+        result = ResultUtils.success(maintenanceList);
+        return result;
+    }
+
     @PostMapping("/addMaintenance")
     public Result AddMaintenance(@RequestBody Maintenance maintenance){
         Result result;
@@ -52,6 +60,23 @@ public class MaintenanceController {
     public Result UpdateMaintenance(@RequestBody Receive receive){
         Result result;
         int resultNum = 1;
+        int id = receive.getId();
+        Date date = receive.getDate();
+
+        Maintenance maintenance = new Maintenance();
+        maintenance.setId(id);
+        maintenance = maintenanceService.getInfo(maintenance);
+        maintenance.setTime(date);
+
+        maintenanceService.updateMaintenance(maintenance,resultNum);
+        result = ResultUtils.success(maintenance);
+        return result;
+    }
+
+    @PostMapping("/finishMaintenance")
+    public Result FinishMaintenance(@RequestBody Receive receive){
+        Result result;
+        int resultNum = 2;
         int id = receive.getId();
         Date date = receive.getDate();
 

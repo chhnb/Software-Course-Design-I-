@@ -44,7 +44,7 @@ class DormitoryManagementApplicationTests {
         receive.setToken(result.getToken());
         receive.setUserName("manhattanCafe");
 
-        result = loginController.ChangeUserName(receive);
+        result = maintenanceController.ShowMaintenance();
         System.out.println(result);
     }
 }

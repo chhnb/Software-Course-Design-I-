@@ -1,7 +1,6 @@
 package edu.njust.dormitory.repository;
 
 import edu.njust.dormitory.entity.Maintenance;
-import edu.njust.dormitory.entity.Register;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -25,6 +24,9 @@ public interface MaintenanceRepository  extends JpaRepository<Maintenance,Long> 
      */
     @Query("select t from Maintenance t where t.result = 0")
     List<Maintenance> findUnchecked();
+
+    @Query("select t from Maintenance t where t.result = 1")
+    List<Maintenance> findUnfinished();
 
     /**
      * 删除
