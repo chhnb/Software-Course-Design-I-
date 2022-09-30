@@ -122,7 +122,7 @@ public class CostController {
             return ResultUtils.error(6001,"找不到宿舍费用信息");
         }
 
-        int water = cost.getElectric();
+        int water = cost.getWater();
         water += money;
         costService.updateWater(cost,water);
 

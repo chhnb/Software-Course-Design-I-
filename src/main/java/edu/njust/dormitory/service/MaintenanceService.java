@@ -27,6 +27,7 @@ public class MaintenanceService {
 
     public void updateMaintenance(Maintenance maintenance,int resultNum){
         maintenanceRepository.updateMaintenanceById(maintenance.getId(),resultNum);
+        maintenanceRepository.updateDateById(maintenance.getId(),maintenance.getTime());
     }
 
     public void delMaintenance(Maintenance maintenance){

@@ -2,6 +2,8 @@ package edu.njust.dormitory.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class Receive {
     @Override
@@ -82,4 +84,14 @@ public class Receive {
     int money;
     int resultNum;
     int errorCode;
+
+    Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -34,15 +35,14 @@ class DormitoryManagementApplicationTests {
 
         Result result;
         Login login = new Login();
-        login.setUserName("user001");
-        login.setPwd("111111");
+        login.setUserName("oguriCap");
+        login.setPwd("12345667");
         result = loginController.Login(login);
         System.out.println(result);
 
-        String token = result.getToken();
         Receive receive = new Receive();
-        receive.setToken(token);
-        receive.setUserName("specialWeek");
+        receive.setToken(result.getToken());
+        receive.setUserName("manhattanCafe");
 
         result = loginController.ChangeUserName(receive);
         System.out.println(result);

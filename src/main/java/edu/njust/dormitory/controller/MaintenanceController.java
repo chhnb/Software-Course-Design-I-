@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -37,7 +39,11 @@ public class MaintenanceController {
     @PostMapping("/addMaintenance")
     public Result AddMaintenance(@RequestBody Maintenance maintenance){
         Result result;
+        maintenance.setTime(new Date());
+        maintenance.setResult(0);
+
         maintenanceService.addMaintenance(maintenance);
+
         result = ResultUtils.success(maintenance);
         return result;
     }
@@ -45,11 +51,14 @@ public class MaintenanceController {
     @PostMapping("/updateMaintenance")
     public Result UpdateMaintenance(@RequestBody Receive receive){
         Result result;
-        int resultNum = receive.getResultNum();
+        int resultNum = 1;
         int id = receive.getId();
+        Date date = receive.getDate();
+
         Maintenance maintenance = new Maintenance();
         maintenance.setId(id);
         maintenance = maintenanceService.getInfo(maintenance);
+        maintenance.setTime(date);
 
         maintenanceService.updateMaintenance(maintenance,resultNum);
         result = ResultUtils.success(maintenance);

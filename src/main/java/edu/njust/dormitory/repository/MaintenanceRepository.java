@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -40,6 +41,11 @@ public interface MaintenanceRepository  extends JpaRepository<Maintenance,Long> 
     @Transactional
     @Query("update Maintenance t set t.result = :result where t.id = :id")
     void updateMaintenanceById(@Param("id") int id, @Param("result") Integer result);
+
+    @Modifying
+    @Transactional
+    @Query("update Maintenance t set t.time = :time where t.id = :id")
+    void updateDateById(@Param("id") int id, @Param("time") Date time);
 
     @Modifying
     @Transactional
