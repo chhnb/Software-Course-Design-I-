@@ -256,10 +256,11 @@ public class LoginController {
         String oldUserName = JwtUtils.getUserName(token);
 
         Login oldLogin = new Login();
-        Login newLogin;
+        Login newLogin = new Login();
         oldLogin.setUserName(oldUserName);
         oldLogin = loginService.getInfo(oldLogin);
-        newLogin = loginService.getInfo(oldLogin);
+        newLogin.setUserName(oldUserName);
+        newLogin = loginService.getInfo(newLogin);
         newLogin.setUserName(userName);
 
         Login login = new Login();
