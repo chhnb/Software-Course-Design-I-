@@ -22,7 +22,6 @@ public class Dormitory {
      * 自增长宿舍编号
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
     /**

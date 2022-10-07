@@ -35,7 +35,7 @@ class DormitoryManagementApplicationTests {
 
         Result result;
         Login login = new Login();
-        login.setUserName("testName");
+        login.setUserName("0001");
         login.setPwd("999999");
         result = loginController.Login(login);
         System.out.println(result);
