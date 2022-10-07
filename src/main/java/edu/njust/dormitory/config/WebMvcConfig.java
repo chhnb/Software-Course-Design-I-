@@ -59,7 +59,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         excludePath.add("/login");      //注册
         excludePath.add("/queryRegister"); //查询审核结果
         excludePath.add("/img/**");     //静态资源
-
+        excludePath.add("/**");
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePath);
