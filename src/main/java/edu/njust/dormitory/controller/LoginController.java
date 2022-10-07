@@ -283,7 +283,8 @@ public class LoginController {
         maintenanceService.updateUserName(oldLogin,newLogin);
         registerService.updateUserName(oldLogin,newLogin);
 
-        loginService.updateUserName(oldLogin,userName);
+        loginService.delLogin(oldLogin);
+        loginService.addLogin(newLogin);
         String newToken = JwtUtils.sign(newLogin);
 
         result = ResultUtils.success(newLogin);
